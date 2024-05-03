@@ -36,11 +36,11 @@ jobs:
       -
         name: Install Dependencies
         run: |
-          go get ./app
+          go get ./app/cmd/web
       -
         name: Build
         run: |
-          go build ./app -o app
+          go build ./app/cmd/web -o app
       -
         name: Test
         run: |
