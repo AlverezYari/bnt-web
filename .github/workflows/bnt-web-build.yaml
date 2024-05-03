@@ -103,11 +103,7 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: bntweb
-            path: ./bin
-        -
-          name: List Bin Directory
-          run: |
-            ls -la ./bin
+            path: ./app/bin
         -
           name: Setup QEMU
           uses: docker/setup-qemu-action@v3
