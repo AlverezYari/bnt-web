@@ -1,9 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 // TestHandler is a test for the handler function
-func TestHandler() {
+func TestHandler(t *testing.T) {
 	// Call the handler function
 	fmt.Println("Pass")
 }
