@@ -5,7 +5,7 @@
 
 - **bnt-web**: The main web application.
 - **bnt-infa**: The infrastructure for the web application.
-
+- **bnt-api**: The API for the web application. TODO: REMOVE
 
 ### bnt-web
 
