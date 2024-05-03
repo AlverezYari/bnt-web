@@ -1,12 +1,15 @@
 name: "[BNT - WebApp - Build ] Builds the BNT WebApp"
 
 on:
-  workflow_dispatch:
-    inputs:
-      optional-arg:
-        description: 'Set true to do something..'
-        required: false
-        default: 'false'
+  push:
+    branches:
+      - develop
+      # workflow_dispatch:
+      #   inputs:
+      #     optional-arg:
+      #       description: 'Set true to do something..'
+      #       required: false
+      #       default: 'false'
 env:
   OPTIONAL_ARG: ${{ github.event.inputs.optional-arg }}
 
