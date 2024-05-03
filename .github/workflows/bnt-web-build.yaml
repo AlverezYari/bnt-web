@@ -43,7 +43,7 @@ jobs:
       -
         name: Build
         run: |
-          go build ./cmd/web -o /bin/bntweb
+          go build ./cmd/web -o ./bin/bntweb
       -
         name: Archive Artifact
         uses: actions/upload-artifact@v4
