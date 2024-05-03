@@ -46,6 +46,11 @@ jobs:
           mkdir -p ./bin
           go build -o ./bin/bntweb ./cmd/web
       -
+        name: Check Bin Directory
+        run: |
+          ls -la .
+          ls -la ./bin
+      -
         name: Archive Artifact
         uses: actions/upload-artifact@v4
         with:
