@@ -37,13 +37,13 @@ jobs:
         name: Check GO Version
         run: go version
       -
-        name: Build
-        run: |
-          go build -o ./bin/bntweb ./cmd/web
-      -
         name: Test
         run: |
           go test ./...
+      -
+        name: Build
+        run: |
+          go build ./cmd/web -o /bin/bntweb
       -
         name: Archive Artifact
         uses: actions/upload-artifact@v4
