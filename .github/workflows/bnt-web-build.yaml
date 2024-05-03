@@ -95,6 +95,8 @@ jobs:
           with:
             name: bntweb
             path: ./bin
+        -
+          name: List Bin Directory
           run: |
             ls -la ./bin
         -
