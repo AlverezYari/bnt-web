@@ -43,10 +43,10 @@ jobs:
         run: |
           tofu -chdir="./infra" init 
       -
-        name: Tofu Plan [Deployment]
+        name: Tofu Plan [Deploy]
         if: ${{ env.DESTROY_STACK == 'false' }}
         run: |
-          tofu -chdir="./infra" plan -out=otplan
+          tofu -chdir="./infra" plan -var="hcloud_token=${{ secrets.HCLOUD_TOKEN }}" -out=otplan
       -
         name: ToFu Plan [Destroy]
         if: ${{ env.DESTROY_STACK == 'true' }}
