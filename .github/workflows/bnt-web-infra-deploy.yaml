@@ -1,0 +1,53 @@
+name: "[BNT - K8s Infra - Deploy ] Deploys out the k8s infra for the Bnt WebApp"
+
+on:
+  workflow_dispatch:
+    inputs:
+        destroy_stack:
+            description: 'Set true to tear down the stack, false to deploy it.'
+            required: false
+            default: 'false'
+
+env:
+  OPTIONAL_ARG: ${{ github.event.inputs.optional-arg }}
+  TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
+
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      -
+        name: Configure AWS Credentials 
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      -
+        name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_wrapper: false
+      - 
+        name: Tofu Init
+        run: |
+          tofu -chdir="./infra" init --backend-config="../env/dev/dev.tfbackend"
+      -
+        name: Tofu Plan - Deploy
+        if: ${{ env.DESTROY_STACK == 'false' }}
+        run: |
+          tofu -chdir="./infra" plan -out=otplan
+      -
+        name: ToFu Plan - Destroy
+        if: ${{ env.DESTROY_STACK == 'true' }}
+        run:
+          tofu -chdir="./infra" plan -destroy -out=otplan
+      -
+        name: Tofu Deploy
+        if: ${{ env.DESTROY_STACK == 'false' }}
+        run: |
+          tofu -chdir="./infra" apply otplan
