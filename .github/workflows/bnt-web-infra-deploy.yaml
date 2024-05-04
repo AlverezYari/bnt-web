@@ -28,6 +28,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       -
+        name: Write out required SSH Keys for module
+        run: |
+          echo "${{ secrets.BNT_HETZNER_K3S_SSHKEY }}" > ./infra/bnt-hetzner-k3s
+          echo "${{ secrets.BNT_HETZNER_K3S_SSHKEY_PUB }}" > ./infra/bnt-hetzner-k3s.pub
+          chmod 600 ./infra/bnt-hetzner-k3s ./infra/bnt-hetzner-k3s.pub
+      -
         name: Setup OpenTofu
         uses: opentofu/setup-opentofu@v1
         with:
