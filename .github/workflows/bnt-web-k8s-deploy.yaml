@@ -29,7 +29,7 @@ jobs:
         with:
           secret-ids: |
             BNT_KUBE_CONFIG, bnt/ops/web/cluster/kubeconfig
-        parse-json-secrets: false
+          parse-json-secrets: false
       -
         name: Setup and test kubectl
         uses: actions-hub/kubectl@master
