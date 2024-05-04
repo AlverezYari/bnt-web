@@ -48,6 +48,7 @@ jobs:
         env:
           TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
         run: |
+          echo "HCLOUD_TOKEN: $TF_VAR_hcloud_token"
           tofu -chdir="./infra" plan -out=otplan
       -
         name: ToFu Plan [Destroy]
