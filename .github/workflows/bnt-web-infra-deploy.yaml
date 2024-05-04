@@ -60,3 +60,14 @@ jobs:
         if: ${{ env.DESTROY_STACK == 'false' }}
         run: |
           tofu -chdir="./infra" apply otplan
+      -
+        name: Setup Kubeconfig from Tofu state
+        if: ${{ env.DESTROY_STACK == 'false' }}
+        run: |
+          tofu -chdir="./infra" output kubeconfig > .kubeconfig
+      - 
+        name: Upload Kubeconfig to AWS Secrets Manager
+        if: ${{ env.DESTROY_STACK == 'false' }}
+        run: |
+          aws secretsmanager put-secret-value --secret-id "bnt/ops/web/cluster/kubeconfig" --secret-string file://$(pwd)/.kubeconfig
+
