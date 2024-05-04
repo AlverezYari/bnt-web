@@ -33,8 +33,7 @@ jobs:
       -
         name: Debug - Write out our Kubernetes Cluster Config
         run: |
-          echo $BNT_KUBE_CONFIG 
-          echo $BNT_KUBE_CONFIG > ./kubeconfig
+          echo "$BNT_KUBE_CONFIG" | sed '1d;$d' > ./kubeconfig
           chmod 600 ./kubeconfig
           export KUBECONFIG=./kubeconfig
           echo "Checking if our Kubernetes Cluster Config is present and working..."
