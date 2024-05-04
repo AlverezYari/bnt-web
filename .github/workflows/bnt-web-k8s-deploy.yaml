@@ -35,6 +35,7 @@ jobs:
         run: |
           echo "$BNT_KUBE_CONFIG" | sed '1d;$d' > ./kubeconfig
           chmod 600 ./kubeconfig
+          cat ./kubeconfig
           export KUBECONFIG=./kubeconfig
           echo "Checking if our Kubernetes Cluster Config is present and working..."
           kubectl get pods
