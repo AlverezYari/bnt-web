@@ -45,9 +45,8 @@ jobs:
       -
         name: Tofu Plan [Deploy]
         if: ${{ env.DESTROY_STACK == 'false' }}
-        with:
-          env:
-            TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
+        env:
+          TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
         run: |
           tofu -chdir="./infra" plan -out=otplan
       -
