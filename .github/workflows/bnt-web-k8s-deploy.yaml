@@ -26,8 +26,9 @@ jobs:
       -
         name: Retrieve our Kubernetes Cluster Config from AWS Secrets Manager
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
-        secret-ids: |
-          BNT_KUBE_CONFIG, bnt/ops/web/cluster/kubeconfig
+        with:
+          secret-ids: |
+            BNT_KUBE_CONFIG, bnt/ops/web/cluster/kubeconfig
         parse-json-secrets: false
       -
         name: Setup and test kubectl
