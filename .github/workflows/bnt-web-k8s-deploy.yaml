@@ -31,6 +31,12 @@ jobs:
             BNT_KUBE_CONFIG, bnt/ops/web/cluster/kubeconfig
           parse-json-secrets: false
       -
+        name: Debug - Write out our Kubernetes Cluster Config
+        run: |
+          echo $BNT_KUBE_CONFIG
+          echo $BNT_KUBE_CONFIG > ./kubeconfig
+          chmod 600 ./kubeconfig
+      -
         name: Setup and test kubectl
         uses: actions-hub/kubectl@master
         env:
