@@ -1,10 +1,7 @@
 name: "[BNT - WebApp - Build ] Builds the BNT WebApp"
 
 on:
-  push:
-    branches:
-      - develop
-      # workflow_dispatch:
+  workflow_dispatch:
       #   inputs:
       #     optional-arg:
       #       description: 'Set true to do something..'
