@@ -35,7 +35,7 @@ jobs:
       - 
         name: Tofu Init
         run: |
-          tofu -chdir="./infra" init --backend-config="../env/dev/dev.tfbackend"
+          tofu -chdir="./infra" init 
       -
         name: Tofu Plan - Deploy
         if: ${{ env.DESTROY_STACK == 'false' }}
