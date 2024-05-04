@@ -11,7 +11,7 @@ on:
 env:
   OPTIONAL_ARG: ${{ github.event.inputs.optional-arg }}
   TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
-
+  DESTROY_STACK: ${{ github.event.inputs.destroy_stack }}
 
 
 jobs:
@@ -37,12 +37,12 @@ jobs:
         run: |
           tofu -chdir="./infra" init 
       -
-        name: Tofu Plan - Deploy
+        name: Tofu Plan [Deployment]
         if: ${{ env.DESTROY_STACK == 'false' }}
         run: |
           tofu -chdir="./infra" plan -out=otplan
       -
-        name: ToFu Plan - Destroy
+        name: ToFu Plan [Destroy]
         if: ${{ env.DESTROY_STACK == 'true' }}
         run:
           tofu -chdir="./infra" plan -destroy -out=otplan
