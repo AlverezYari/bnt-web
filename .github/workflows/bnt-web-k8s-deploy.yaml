@@ -1,9 +1,7 @@
 name: "[K8s Apps - Deploy] Deploys out the k8s applications to set up our k8s cluster in preperation for the Bnt WebApp"
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch:
       # workflow_dispatch:
       #   inputs:
       #     optional-arg:
