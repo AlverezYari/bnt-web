@@ -31,12 +31,18 @@ jobs:
           secret-ids: |
             ,bnt/ops/web/cluster/kubeconfig
           parse-json-secrets: true
+
+      -
+        name: Setup Kubectl cmd env
+        if: ${{ env.DESTROY_STACK == 'false' }}
+        run: |
+          echo "KUBECONFIG=$KUBECONFIG" >> $GITHUB_ENV >> ./kubeconfig.yaml
+      -
+        name: Setup Kubectl cmd env
+        if: ${{ env.DESTROY_STACK == 'false' }}
+        run: |
+          echo "KUBECTL_CMD=kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify" >> $GITHUB_ENV
       - 
         name: Decode and Write Kubeconfig
         run: |
-          mkdir -p ~/.kube
-          echo $KUBECONFIG > ~/.kube/config
-          cat ~/.kube/config
-          chmod 600 ~/.kube/config
-          kubectl get pods
-
+          ${{ env.KUBECTL_CMD }} get nodes
