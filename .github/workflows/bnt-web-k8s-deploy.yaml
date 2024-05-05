@@ -34,14 +34,12 @@ jobs:
 
       -
         name: Setup Kubectl cmd env
-        if: ${{ env.DESTROY_STACK == 'false' }}
         run: |
           echo "KUBECONFIG=$KUBECONFIG" >> $GITHUB_ENV >> ./kubeconfig.yaml
       -
         name: Setup Kubectl cmd env
-        if: ${{ env.DESTROY_STACK == 'false' }}
         run: |
-          echo "KUBECTL_CMD=kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify" >> $GITHUB_ENV
+          echo "KUBECTL_CMD=kubectl --kubeconfig=./kubeconfig.yaml --insecure-skip-tls-verify" >> $GITHUB_ENV
       - 
         name: Decode and Write Kubeconfig
         run: |
