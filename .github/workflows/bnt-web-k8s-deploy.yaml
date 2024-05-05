@@ -72,6 +72,6 @@ jobs:
         run: |
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-staging.yaml
       -
-        name: Deploy our Self-hosted docker registry
+        name: Deploy the Bnt WebApp [DEV] to the k8s cluster
         run: |
-          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/registry.yaml
+          ${{ env.KUBECTL_CMD }} apply --validate=false -k ./k8s/bnt-web/overlays/development/
