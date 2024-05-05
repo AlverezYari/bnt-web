@@ -31,7 +31,7 @@ jobs:
       - 
         name: Decode and Write Kubeconfig
         run: |
-          echo $KUBECONFIG  > ./kubeconfig
+          echo $BNT_OPS_WEB_CLUSTER_KUBECONFIG_KUBECONFIG > ./kubeconfig
           cat ./kubeconfig
           chmod 600 ./kubeconfig
           kubectl get pods --kubeconfig=./kubeconfig
