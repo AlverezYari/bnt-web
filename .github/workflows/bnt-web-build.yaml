@@ -118,5 +118,5 @@ jobs:
         -
           name: Push Docker Image
           run: |
-            docker tag bnt-webapp:develop ghcr.io/alverezyari/bnt-webapp:develop
-            docker push ghcr.io/alverezyari/bnt-webapp:develop
+            docker tag bnt-webapp:develop ghcr.io/alverezyari/bnt-web:develop
+            docker push ghcr.io/alverezyari/bnt-web:develop
