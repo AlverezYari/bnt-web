@@ -39,7 +39,7 @@ jobs:
       -
         name: Setup Kubectl cmd env
         run: |
-          echo "KUBECTL_CMD=kubectl --kubeconfig=./kubeconfig.yaml --insecure-skip-tls-verify" >> $GITHUB_ENV
+          echo "KUBECTL_CMD=kubectl --kubeconfig=./kubeconfig.yaml" >> $GITHUB_ENV
       - 
         name: Decode and Write Kubeconfig
         run: |
