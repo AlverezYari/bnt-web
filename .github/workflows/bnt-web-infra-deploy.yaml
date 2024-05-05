@@ -33,13 +33,16 @@ jobs:
           echo "${{ secrets.BNT_HETZNER_K3S_SSHKEY }}" > ./infra/bnt-hetzner-k3s
           echo "${{ secrets.BNT_HETZNER_K3S_SSHKEY_PUB }}" > ./infra/bnt-hetzner-k3s.pub
           chmod 600 ./infra/bnt-hetzner-k3s ./infra/bnt-hetzner-k3s.pub
-      -
-        name: Generate Packer Image for K3s
-        run: |
-          curl -sL https://raw.githubusercontent.com/kube-hetzner/terraform-hcloud-kube-hetzner/master/packer-template/hcloud-microos-snapshots.pkr.hcl -o ./infra/hcloud-microos-snapshots.pkr.hcl
-          export HCLOUD_TOKEN=${{ secrets.HCLOUD_TOKEN }}
-          packer init ./infra/hcloud-microos-snapshots.pkr.hcl
-          packer build ./infra/hcloud-microos-snapshots.pkr.hcl
+      # -
+      #   name: Generate Packer Image for K3s
+      #   run: |
+      #
+      #     hcloud image delete my-old-image
+      #
+      #     curl -sL https://raw.githubusercontent.com/kube-hetzner/terraform-hcloud-kube-hetzner/master/packer-template/hcloud-microos-snapshots.pkr.hcl -o ./infra/hcloud-microos-snapshots.pkr.hcl
+      #     export HCLOUD_TOKEN=${{ secrets.HCLOUD_TOKEN }}
+      #     packer init ./infra/hcloud-microos-snapshots.pkr.hcl
+      #     packer build ./infra/hcloud-microos-snapshots.pkr.hcl
       -
         name: Setup OpenTofu
         uses: opentofu/setup-opentofu@v1
