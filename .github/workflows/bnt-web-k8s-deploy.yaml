@@ -26,12 +26,12 @@ jobs:
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
           secret-ids: |
-            bnt/ops/web/cluster/kubeconfig
+            ,bnt/ops/web/cluster/kubeconfig
           parse-json-secrets: true
       - 
         name: Decode and Write Kubeconfig
         run: |
-          echo $BNT_OPS_WEB_CLUSTER_KUBECONFIG_KUBECONFIG > ./kubeconfig
+          echo $KUBECONFIG > ./kubeconfig
           cat ./kubeconfig
           chmod 600 ./kubeconfig
           kubectl get pods --kubeconfig=./kubeconfig
