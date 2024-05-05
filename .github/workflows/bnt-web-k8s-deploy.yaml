@@ -28,14 +28,13 @@ jobs:
           secret-ids: |
             BNT_KUBE_CONFIG, bnt/ops/web/cluster/kubeconfig
           parse-json-secrets: false
-      -
-        name: Debug - Write out our Kubernetes Cluster Config
+      - 
+        name: Decode and Write Kubeconfig
         run: |
-          echo "$BNT_KUBE_CONFIG" | sed '1d;$d' > ./kubeconfig
+          echo $BNT_KUBE_CONFIG | base64 --decode > ./kubeconfig
           chmod 600 ./kubeconfig
-          cat ./kubeconfig
           export KUBECONFIG=./kubeconfig
-          echo "Checking if our Kubernetes Cluster Config is present and working..."
+          echo "Checking if Kubernetes Cluster Config is present and working..."
           kubectl get pods
       -
         name: Setup and test kubectl
