@@ -1,0 +1,48 @@
+name: "[K8s Apps - Deploy] Deploys out the k8s applications to set up our k8s cluster in preperation for the Bnt WebApp"
+
+on:
+  push:
+    branches:
+      - develop
+      # workflow_dispatch:
+      #   inputs:
+      #     optional-arg:
+      #       description: 'Set true to do something..'
+      #       required: false
+      #       default: 'false'
+jobs:
+  deploy-k8s-apps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      -
+        name: Configure AWS Credentials 
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      -
+        name: Retrieve our Kubernetes Cluster Config from AWS Secrets Manager
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        with:
+          secret-ids: |
+            BNT_KUBE_CONFIG, bnt/ops/web/cluster/kubeconfig
+          parse-json-secrets: false
+      -
+        name: Debug - Write out our Kubernetes Cluster Config
+        run: |
+          echo "$BNT_KUBE_CONFIG" | sed '1d;$d' > ./kubeconfig
+          chmod 600 ./kubeconfig
+          cat ./kubeconfig
+          export KUBECONFIG=./kubeconfig
+          echo "Checking if our Kubernetes Cluster Config is present and working..."
+          kubectl get pods
+      -
+        name: Setup and test kubectl
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ./kubeconfig
+        with:
+          args: get pods
