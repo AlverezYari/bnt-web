@@ -31,14 +31,6 @@ jobs:
       - 
         name: Decode and Write Kubeconfig
         run: |
-          echo $BNT_KUBE_CONFIG | base64 --decode > ./kubeconfig
-          chmod 600 ./kubeconfig
-          export KUBECONFIG=./kubeconfig
-          echo "Checking if Kubernetes Cluster Config is present and working..."
-          kubectl get pods
-      - 
-        name: Decode and Write Kubeconfig
-        run: |
           # Decode the entire JSON object from Base64 and extract the 'kubeconfig' key using jq
           echo $BNT_KUBE_CONFIG | jq -r 'kubeconfig' > ./kubeconfig
           chmod 600 ./kubeconfig
