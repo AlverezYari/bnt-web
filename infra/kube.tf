@@ -639,8 +639,10 @@ module "kube-hetzner" {
   # you would have to connect to any control plane node via SSH, as you can run kubectl from within these.
   # Please be advised that this setting has no effect on the load balancer when the use_control_plane_lb variable is set to true. This is
   # because firewall rules cannot be applied to load balancers yet.
-  firewall_kube_api_source = ["75.33.78.238/32"]
-
+  ## Home IP
+  # firewall_kube_api_source = ["75.33.78.238/32"]
+  ## Full Open for bootstrapping
+  firewall_kube_api_source = ["0.0.0.0/0"]
   # Allow SSH access from the specified networks. Default: ["0.0.0.0/0", "::/0"]
   # Allowed values: null (disable SSH rule entirely) or a list of allowed networks with CIDR notation.
   # Ideally you would set your IP there. And if it changes after cluster deploy, you can always update this variable and apply again.

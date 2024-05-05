@@ -22,16 +22,25 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       -
+        name: Setup Kubectl
+        uses: azure/setup-kubectl@v3
+      -
         name: Retrieve our Kubernetes Cluster Config from AWS Secrets Manager
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
           secret-ids: |
-            bnt/ops/web/cluster/kubeconfig
+            ,bnt/ops/web/cluster/kubeconfig
           parse-json-secrets: true
+
+      -
+        name: Setup Kubectl cmd env
+        run: |
+          echo "KUBECONFIG=$KUBECONFIG" >> $GITHUB_ENV >> ./kubeconfig.yaml
+      -
+        name: Setup Kubectl cmd env
+        run: |
+          echo "KUBECTL_CMD=kubectl --kubeconfig=./kubeconfig.yaml" >> $GITHUB_ENV
       - 
         name: Decode and Write Kubeconfig
         run: |
-          echo $KUBECONFIG  > ./kubeconfig
-          chmod 600 ./kubeconfig
-          kubectl get pods
-
+          ${{ env.KUBECTL_CMD }} get nodes
