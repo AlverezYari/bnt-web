@@ -74,4 +74,4 @@ jobs:
       -
         name: Deploy the Bnt WebApp [DEV] to the k8s cluster
         run: |
-          ${{ env.KUBECTL_CMD }} apply --validate=false -k ./k8s/bnt-web/overlays/development/
+          ${{ env.KUBECTL_CMD }} apply --validate=false -k ./k8s/bnt-web/overlays/develop/
