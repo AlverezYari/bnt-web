@@ -53,7 +53,7 @@ jobs:
       -
         name: Deploy our GoDaddy Secret for Cert Manager Auth
         run: |
-          cat <<EOF > secret.yml
+          cat <<EOF > secret.yaml
           apiVersion: v1
           kind: Secret
           metadata:
@@ -62,4 +62,3 @@ jobs:
           stringData:
             token: ${{ secrets.GODADDY_API_KEY }}:${{ secrets.GODADDY_API_SECRET }}
           EOF
-          ${{ env.KUBECTL_CMD }} apply -n cert-manager -f secret.yml
