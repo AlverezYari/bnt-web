@@ -41,6 +41,23 @@ jobs:
         run: |
           echo "KUBECTL_CMD=kubectl --kubeconfig=./kubeconfig.yaml" >> $GITHUB_ENV
       - 
-        name: Decode and Write Kubeconfig
+        name: Check that our KUBECONFIG is set and working
         run: |
           ${{ env.KUBECTL_CMD }} get nodes
+      -
+        name: Deploy the GoDaddy Webhook plugin for Cert Manager
+        run: |
+          export DOMAIN=bluenimbustech.com  sed "s/bluenimbustech.com/$DOMAIN/g" deploy/webhook-all.yml | ${{ env.KUBECTL_CMD }} apply -n cert-manager -validate=false -f -
+      -
+        name: Deploy our GoDaddy Secret for Cert Manager Auth
+        run: |
+          cat <<EOF > secret.yml
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: godaddy-api-key
+          type: Opaque
+          stringData:
+            token: ${{ secrets.GODADDY_API_KEY }}
+          EOF
+          ${{ env.KUBECTL_CMD }} apply -n cert-manager -f secret.yml
