@@ -49,7 +49,7 @@ jobs:
         run: |
           export DOMAIN=bluenimbustech.com  
           sed "s/acme.mycompany.com/$DOMAIN/g" ./k8s/core/godaddy-webhook.yaml
-          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/godaddy-webhook.yaml -n cert-manager
+          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/godaddy-webhook.yaml
       -
         name: Deploy our GoDaddy Secret for Cert Manager Auth
         run: |
