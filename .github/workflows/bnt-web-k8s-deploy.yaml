@@ -51,6 +51,7 @@ jobs:
           sed "s/acme.mycompany.com/$DOMAIN/g" ./k8s/core/godaddy-webhook.yaml
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/godaddy-webhook.yaml
       -
+        ## TODO: Refactor this to be provided by a bnt-core Kustomize file
         name: Deploy our GoDaddy Secret for Cert Manager Auth
         run: |
           cat <<EOF > secret.yaml
@@ -64,6 +65,13 @@ jobs:
           EOF
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace cert-manager
       -
+        ## TODO: Add a check to see if the clusterissuer already exists, 
+        ## TODO: if it does, then we should skip this step.
+        ## TODO: Refactor this to use a bnt-core Kustomize file
         name: Deploy our ClusterIssuer for Cert Manager
         run: |
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-staging.yaml
+      -
+        name: Deploy our Self-hosted docker registry
+        run: |
+          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/registry.yaml
