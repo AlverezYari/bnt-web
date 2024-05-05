@@ -48,7 +48,7 @@ jobs:
         name: Deploy the GoDaddy Webhook plugin for Cert Manager
         run: |
           export DOMAIN=bluenimbustech.com  
-          sed "s/acme.mycompany.com/$DOMAIN/g" ./k8s/core/godaddy-webhook.yaml | 
+          sed "s/acme.mycompany.com/$DOMAIN/g" ./k8s/core/godaddy-webhook.yaml
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/godaddy-webhook.yaml -n cert-manager
       -
         name: Deploy our GoDaddy Secret for Cert Manager Auth
