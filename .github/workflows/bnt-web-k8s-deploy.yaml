@@ -33,5 +33,5 @@ jobs:
         run: |
           echo $KUBECONFIG  > ./kubeconfig
           chmod 600 ./kubeconfig
-          kubectl get pods
+          kubectl get pods --kubeconfig=./kubeconfig
 
