@@ -69,5 +69,5 @@ jobs:
         name: Upload Kubeconfig to AWS Secrets Manager
         if: ${{ env.DESTROY_STACK == 'false' }}
         run: |
-          base64 .kubeconfig > encoded_kubeconfig
-          aws secretsmanager put-secret-value --secret-id "bnt/ops/web/cluster/kubeconfig" --secret-string file://$(pwd)/encoded_kubeconfig
+          KUBE_CONFIG_CONTENT=$(cat .kubeconfig | jq -Rs .)
+          aws secretsmanager put-secret-value --secret-id "bnt/ops/web/cluster/kubeconfig" --secret-string "{\"kubeconfig\":$KUBE_CONFIG_CONTENT}"  
