@@ -62,7 +62,7 @@ jobs:
           stringData:
             token: ${{ secrets.GODADDY_API_KEY }}:${{ secrets.GODADDY_API_SECRET }}
           EOF
-          ${{ env.KUBECTL_CMD }} apply --validate=false -f secret.yaml --namespace cert-manager${{ env.KUBECTL_CMD }} apply --validate=false -f secret.yaml --namespace default
+          ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace cert-manager
       -
         name: Deploy our ClusterIssuer for Cert Manager
         run: |
