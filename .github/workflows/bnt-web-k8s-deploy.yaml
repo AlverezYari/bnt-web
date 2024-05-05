@@ -25,10 +25,6 @@ jobs:
         name: Setup Kubectl
         uses: azure/setup-kubectl@v3
       -
-        name: Test what Kubeconfig does before we write out our own Kubeconfig
-        run: |
-          kubectl get pods
-      -
         name: Retrieve our Kubernetes Cluster Config from AWS Secrets Manager
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
@@ -38,8 +34,9 @@ jobs:
       - 
         name: Decode and Write Kubeconfig
         run: |
-          echo $KUBECONFIG > ./kubeconfig
-          cat ./kubeconfig
-          chmod 600 ./kubeconfig
-          kubectl get pods --kubeconfig=./kubeconfig
+          mkdir -p ~/.kube
+          echo $KUBECONFIG > ~/.kube/config
+          cat ~/.kube/config
+          chmod 600 ~/.kube/config
+          kubectl get pods
 
