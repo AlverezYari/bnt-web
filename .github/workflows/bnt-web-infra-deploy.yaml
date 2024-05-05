@@ -64,7 +64,7 @@ jobs:
         name: Setup Kubeconfig from Tofu state
         if: ${{ env.DESTROY_STACK == 'false' }}
         run: |
-          tofu -chdir="./infra" output kubeconfig > .kubeconfig
+          tofu -chdir="./infra" output --raw kubeconfig > .kubeconfig
       - 
         name: Upload Kubeconfig to AWS Secrets Manager
         if: ${{ env.DESTROY_STACK == 'false' }}
