@@ -167,13 +167,14 @@ module "kube-hetzner" {
   ]
 
   agent_nodepools = [
-    # {
-    #   name        = "agent-small",
-    #   server_type = "cpx11",
-    #   location    = "fsn1",
-    #   labels      = [],
-    #   taints      = [],
-    #   count       = 1
+    {
+      name        = "agent-small",
+      server_type = "cpx11",
+      location    = "fsn1",
+      labels      = [],
+      taints      = [],
+      count       = 1
+    },
     #   # swap_size   = "2G" # remember to add the suffix, examples: 512M, 1G
     #   # zram_size   = "2G" # remember to add the suffix, examples: 512M, 1G
     #   # kubelet_args = ["kube-reserved=cpu=50m,memory=300Mi,ephemeral-storage=1Gi", "system-reserved=cpu=250m,memory=300Mi"]
@@ -235,14 +236,14 @@ module "kube-hetzner" {
       count = 1
     },
     # Arm based nodes
-    {
-      name        = "agent-arm-small",
-      server_type = "cax11",
-      location    = "fsn1",
-      labels      = [],
-      taints      = [],
-      count       = 1
-    },
+    # {
+    #   name        = "agent-arm-small",
+    #   server_type = "cax11",
+    #   location    = "fsn1",
+    #   labels      = [],
+    #   taints      = [],
+    #   count       = 1
+    # },
     # For fine-grained control over the nodes in a node pool, replace the count variable with a nodes map.
     # In this case, the node-pool variables are defaults which can be overridden on a per-node basis.
     # Each key in the nodes map refers to a single node and must be an integer string ("1", "123", ...).
@@ -308,7 +309,7 @@ module "kube-hetzner" {
   ### The following values are entirely optional (and can be removed from this if unused)
 
   # You can refine a base domain name to be use in this form of nodename.base_domain for setting the reserve dns inside Hetzner
-  # base_domain = "mycluster.example.com"
+  # base_domain = "my cluster.example.com"
 
   # Cluster Autoscaler
   # Providing at least one map for the array enables the cluster autoscaler feature, default is disabled
