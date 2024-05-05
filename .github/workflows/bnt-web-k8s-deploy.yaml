@@ -58,6 +58,6 @@ jobs:
             name: godaddy-api-key
           type: Opaque
           stringData:
-            token: ${{ secrets.GODADDY_API_KEY }}
+          token: ${{ secrets.GODADDY_API_KEY }}:${{ secrets.GODADDY_API_SECRET }}
           EOF
           ${{ env.KUBECTL_CMD }} apply -n cert-manager -f secret.yml
