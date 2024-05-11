@@ -43,4 +43,6 @@ spec:
   tls:
     secretName: dev-bluenimbustech-com-tls
     domains:
-    - main: *.bluenimbustech.com
+    - main: bluenimbustech.com
+    - sans:
+      - dev.bluenimbustech.com
