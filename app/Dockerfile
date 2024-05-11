@@ -5,13 +5,16 @@ FROM golang:1.22.1 as builder
 WORKDIR /app
 
 # We then copy our GO bin and our static assests to the /app directory
-COPY ./bin/bntweb /app/
+COPY ./bin/bntweb ./bntweb
+
+# Set permissions for the binary
+RUN chmod +x bntweb
 
 # We then copy our ui static assests to the /app directory so our server can server them and render our html templates
-COPY ./ui /app/ui
+COPY ./ui ./ui
 
 # We then expose our application on port 80
 EXPOSE 80
 
 # We then run our application
-CMD ["/app/bntweb","-addr",":80"]
+CMD ["./bntweb","-addr",":80"]
