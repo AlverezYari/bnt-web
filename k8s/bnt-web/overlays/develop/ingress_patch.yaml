@@ -18,6 +18,7 @@ spec:
           port: 80
   tls:
     secretName: dev-bluenimbustech-com-tls
-    certResolver: letsencrypt-staging
     domains:
-    - main: dev.bluenimbustech.com
+    - main: bluenimbustech.com
+    - sans:
+      - dev.bluenimbustech.com
