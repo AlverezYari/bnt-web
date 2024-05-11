@@ -16,5 +16,7 @@ COPY ./ui ./ui
 # We then expose our application on port 80
 EXPOSE 80
 
-# We then run our application
-CMD ["./bntweb","-addr",":80"]
+# We set our entrypoint to our executable
+ENTRYPOINT ["./bntweb"]
+# Finally we define our default command to start our app on port 80
+CMD ["--addr=:80"]
