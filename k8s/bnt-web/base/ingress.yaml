@@ -19,7 +19,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: bnt-service
+            name: bnt-web-service
             port:
               number: 80
 
