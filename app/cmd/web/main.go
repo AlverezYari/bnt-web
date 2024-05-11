@@ -18,6 +18,8 @@ func main() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	// Create a new logger instance
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	// Parse the command-line flags
+	flag.Parse()
 	// Setup Application instance
 	app := &application{
 		logger: logger,
