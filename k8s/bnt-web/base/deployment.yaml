@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bnt-web
+  namespace: bnt-web
+  labels:
+    app: bnt-web
+spec:
+  replicas: 2  # Specifies the number of Pods to run
+  selector:
+    matchLabels:
+      app: bnt-web
+  template:
+    metadata:
+      labels:
+        app: bnt-web
+    spec:
+      containers:
+      - name: bnt-web
+        image: ghcr.io/alverezyari/bnt-web:develop
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: github-regcred
+

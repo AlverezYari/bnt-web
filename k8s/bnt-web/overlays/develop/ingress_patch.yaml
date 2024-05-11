@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bnt-web-ingress
+  namespace: bnt-web
+spec:
+  tls:
+  - hosts:
+    - dev.bluenimbustech.com
+    secretName: dev-bluenimbustech-com-tls
+  rules:
+  - host: dev.bluenimbustech.com
+
