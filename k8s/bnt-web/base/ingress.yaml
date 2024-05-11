@@ -5,7 +5,6 @@ metadata:
   namespace: bnt-web
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-staging
-    traefik.ingress.kubernetes.io/use-middlewares: cert-manager
 spec:
   entryPoints:
     - websecure
@@ -17,7 +16,8 @@ spec:
         - name: bnt-web-service
           port: 80
   tls:
-    secretName: dev-bluenimbustech-com-tls
+    secretName: bnt-web-tls-wildcard
+    certResolver: letsencrypt-staging
     domains:
     - main: bluenimbustech.com
     - sans:

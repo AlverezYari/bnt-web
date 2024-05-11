@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bnt-web-tls-wildcard
+spec:
+  secretName: bnt-web-tls-wildcard
+  renewBefore: 240h
+  dnsNames:
+  - '*.bluenimbustech.com'
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
