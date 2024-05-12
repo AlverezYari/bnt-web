@@ -64,6 +64,7 @@ jobs:
             token: ${{ secrets.GODADDY_API_KEY }}:${{ secrets.GODADDY_API_SECRET }}
           EOF
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace cert-manager
+          ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace bnt-web
       -
         ## TODO: Add a check to see if the clusterissuer already exists, 
         ## TODO: if it does, then we should skip this step.
