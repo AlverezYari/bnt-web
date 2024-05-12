@@ -3,8 +3,6 @@ kind: IngressRoute
 metadata:
   name: bnt-web-ingress
   namespace: bnt-web
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   entryPoints:
     - websecure
@@ -17,8 +15,3 @@ spec:
           port: 80
   tls:
     secretName: bnt-web-tls-wildcard
-    certResolver: letsencrypt-staging
-    domains:
-    - main: bluenimbustech.com
-    - sans:
-      - dev.bluenimbustech.com
