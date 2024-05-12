@@ -7,7 +7,7 @@ spec:
   secretName: bnt-web-tls-wildcard
   renewBefore: 240h
   dnsNames:
-  - '*.bluenimbustech.com'
+  - 'test.bluenimbustech.com'
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer
