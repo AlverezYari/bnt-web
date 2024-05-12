@@ -44,26 +44,22 @@ jobs:
         name: Check that our KUBECONFIG is set and working
         run: |
           ${{ env.KUBECTL_CMD }} get nodes
-      -
-        name: Deploy the GoDaddy Webhook plugin for Cert Manager
-        run: |
-          export DOMAIN=acme.bluenimbustech.com  
-          sed "s/acme.mycompany.com/$DOMAIN/g" ./k8s/core/godaddy-webhook.yaml
-          cat ./k8s/core/godaddy-webhook.yaml
-          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/godaddy-webhook.yaml
+      - 
+        name: Setup Helm
+        uses: azure/setup-helm@v4.2.0
+        id: install
       -
         ## TODO: Refactor this to be provided by a bnt-core Kustomize file
-        name: Deploy our GoDaddy Secret for Cert Manager Auth
+        name: Deploy our Hetzner Secret for Cert Manager Auth
         run: |
           cat <<EOF > secret.yaml
           apiVersion: v1
           kind: Secret
           metadata:
-            name: godaddy-api-key
+            name: hetzner-secret
           type: Opaque
-          stringData:
-            token: ${{ secrets.GODADDY_API_KEY }}:${{ secrets.GODADDY_API_SECRET }}
-          EOF
+          data:
+            api-key: ${{ secrets.HETZNER_DNS_API_KEY }}
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace cert-manager
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace bnt-web
       -

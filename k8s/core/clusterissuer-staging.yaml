@@ -19,10 +19,8 @@ spec:
       dns01:
         webhook:
           config:
-            apiKeySecretRef:
-              name: godaddy-api-key
-              key: token
-            production: true
-            ttl: 600
+            secretName: hetzner-secret
+            zoneName: bluenimbustech.com
+            apiUrl: https://dns.hetzner.com/api/v1
           groupName: acme.bluenimbustech.com
-          solverName: godaddy
+          solverName: hetzner
