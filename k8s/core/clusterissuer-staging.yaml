@@ -15,7 +15,7 @@ spec:
     solvers:
     - selector:
         dnsNames:
-        - '*.bluenimbustech.com'
+        - 'bluenimbustech.com'
       dns01:
         webhook:
           config:
