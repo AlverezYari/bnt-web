@@ -65,6 +65,7 @@ jobs:
       -
         name: Deploy the Hetzner DNS Webhook for Cert Manager
         run: |
+          export KUBECONFIG=./kubeconfig.yaml
           helm repo add cert-manager-webhook-hetzner https://vadimkim.github.io/cert-manager-webhook-hetzner
           helm install --namespace cert-manager cert-manager-webhook-hetzner cert-manager-webhook-hetzner/cert-manager-webhook-hetzner --set groupName=acme.bluenimbustech.com
       -
