@@ -74,9 +74,8 @@ jobs:
           KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
           export KUBECONFIG=./kubeconfig.yaml
-          kubectl get nodes
           helm repo add cert-manager-webhook-hetzner https://vadimkim.github.io/cert-manager-webhook-hetzner
-          helm upgrade --install --namespace cert-manager cert-manager-webhook-hetzner cert-manager-webhook-hetzner/cert-manager-webhook-hetzner --set groupName=acme.bluenimbustech.com
+          helm upgrade --install --namespace cert-manager cert-manager-webhook-hetzner cert-manager-webhook-hetzner/cert-manager-webhook-hetzner --set groupName=dns.hetzner.cloud
       -
         ## TODO: Add a check to see if the clusterissuer already exists, 
         ## TODO: if it does, then we should skip this step.

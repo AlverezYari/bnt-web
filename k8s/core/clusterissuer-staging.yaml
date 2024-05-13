@@ -15,7 +15,7 @@ spec:
     solvers:
       - dns01:
           webhook:
-            groupName: acme.bluenimbustech.com
+            groupName: dns.hetzner.cloud
             solverName: hetzner
             config:
               secretName: hetzner-secret
