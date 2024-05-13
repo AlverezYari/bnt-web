@@ -63,7 +63,7 @@ jobs:
           export KUBECONFIG=./kubeconfig.yaml
           git clone https://github.com/mecodia/cert-manager-webhook-hetzner.git
           cd cert-manager-webhook-hetzner
-          helm update --install --namespace kube-system cert-manager-webhook-hetzner ./charts/cert-manager-webhook-hetzner
+          helm upgrade --install --namespace kube-system cert-manager-webhook-hetzner ./charts/cert-manager-webhook-hetzner
       -
         ## TODO: Add a check to see if the clusterissuer already exists, 
         ## TODO: if it does, then we should skip this step.
