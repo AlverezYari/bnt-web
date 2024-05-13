@@ -4,23 +4,19 @@ metadata:
   name: letsencrypt-staging
 spec:
   acme:
-    # ACME Server
+    # ACME Server URL
     # prod : https://acme-v02.api.letsencrypt.org/directory
     # staging : https://acme-staging-v02.api.letsencrypt.org/directory
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     # ACME Email address
     email: ops@bluenimbustech.com
     privateKeySecretRef:
-      name: letsencrypt-staging # staging or production
+      name: letsencrypt-staging
     solvers:
-    - selector:
-        dnsZones:
-        - 'bluenimbustech.com'
-      dns01:
-        webhook:
-          config:
-            secretName: hetzner-secret
-            zoneName: bluenimbustech.com
-            apiUrl: https://dns.hetzner.com/api/v1
-          groupName: acme.bluenimbustech.com
-          solverName: hetzner
+      - dns01:
+          webhook:
+            groupName: acme.bluenimbustech.com
+            solverName: hetzner
+            config:
+              secretName: hetzner-secret
+              apiUrl: https://dns.hetzner.com/api/v1
