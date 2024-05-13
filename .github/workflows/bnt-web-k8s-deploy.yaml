@@ -49,10 +49,14 @@ jobs:
         uses: azure/setup-helm@v4.2.0
         id: install
       -
+        name: Encode our Hetzner API Key
+        run: |
+          echo "HETZNER_DNS_API_KEY_BASE64=$(echo -n ${{ secrets.HETZNER_DNS_API_KEY }} | base64)" >> $GITHUB_ENV
+
+      -
         ## TODO: Refactor this to be provided by a bnt-core Kustomize file
         name: Deploy our Hetzner Secret for Cert Manager Auth
         run: |
-          echo "HETZNER_DNS_API_KEY_BASE64=$(echo -n ${{ secrets.HETZNER_DNS_API_KEY }} | base64)" >> $GITHUB_ENV
           cat <<EOF > secret.yaml
           apiVersion: v1
           kind: Secret
@@ -60,7 +64,7 @@ jobs:
             name: hetzner-secret
           type: Opaque
           data:
-            api-key: $HETZNER_DNS_API_KEY_BASE64
+            api-key: ${{ env.HETZNER_DNS_API_KEY_BASE64 }}
           EOF
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace cert-manager
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace bnt-web
