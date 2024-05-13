@@ -63,6 +63,11 @@ jobs:
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace cert-manager
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace bnt-web
       -
+        name: Deploy the Hetzner DNS Webhook for Cert Manager
+        run: |
+          helm repo add cert-manager-webhook-hetzner https://vadimkim.github.io/cert-manager-webhook-hetzner
+          helm install --namespace cert-manager cert-manager-webhook-hetzner cert-manager-webhook-hetzner/cert-manager-webhook-hetzner --set groupName=acme.bluenimbustech.com
+      -
         ## TODO: Add a check to see if the clusterissuer already exists, 
         ## TODO: if it does, then we should skip this step.
         ## TODO: Refactor this to use a bnt-core Kustomize file
