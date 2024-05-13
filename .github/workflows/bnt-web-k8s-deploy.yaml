@@ -60,9 +60,9 @@ jobs:
         env:
           KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
-          export KUBECONFIG=./kubeconfig.yaml
           git clone https://github.com/mecodia/cert-manager-webhook-hetzner.git
           cd cert-manager-webhook-hetzner
+          export KUBECONFIG=../kubeconfig.yaml
           helm upgrade --install --namespace kube-system cert-manager-webhook-hetzner ./charts/cert-manager-webhook-hetzner
       -
         ## TODO: Add a check to see if the clusterissuer already exists, 
