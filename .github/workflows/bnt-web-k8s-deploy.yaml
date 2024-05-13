@@ -64,8 +64,11 @@ jobs:
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace bnt-web
       -
         name: Deploy the Hetzner DNS Webhook for Cert Manager
+        env:
+          KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
-          ${{ env.KUBECTL_CMD }} config view --raw >~/.kube/config
+          echo "KUBECONFIG=$KUBECONFIG" >> ~/.kube/config
+          cat ~/.kube/config
           helm repo add cert-manager-webhook-hetzner https://vadimkim.github.io/cert-manager-webhook-hetzner
           helm upgrade --install --namespace cert-manager cert-manager-webhook-hetzner cert-manager-webhook-hetzner/cert-manager-webhook-hetzner --set groupName=acme.bluenimbustech.com
       -
