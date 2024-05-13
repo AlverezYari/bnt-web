@@ -70,6 +70,7 @@ jobs:
         ## TODO: Refactor this to use a bnt-core Kustomize file
         name: Deploy our ClusterIssuer for Cert Manager
         run: |
+          ls -la
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-staging.yaml
       -
         name: Deploy the Bnt WebApp [DEV] to the k8s cluster
