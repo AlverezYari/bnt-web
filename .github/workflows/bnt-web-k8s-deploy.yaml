@@ -67,8 +67,8 @@ jobs:
         env:
           KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
-          echo "KUBECONFIG=$KUBECONFIG" >> ~/.kube/config
-          cat ~/.kube/config
+          export KUBECONFIG=./kubeconfig.yaml
+          kubectl get nodes
           helm repo add cert-manager-webhook-hetzner https://vadimkim.github.io/cert-manager-webhook-hetzner
           helm upgrade --install --namespace cert-manager cert-manager-webhook-hetzner cert-manager-webhook-hetzner/cert-manager-webhook-hetzner --set groupName=acme.bluenimbustech.com
       -
