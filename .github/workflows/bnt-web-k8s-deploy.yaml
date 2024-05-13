@@ -60,6 +60,7 @@ jobs:
           type: Opaque
           data:
             api-key: ${{ secrets.HETZNER_DNS_API_KEY }}
+          EOF
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace cert-manager
           ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace bnt-web
       -
