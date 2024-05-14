@@ -861,14 +861,15 @@ MTU: 1450
 
   # Cert manager, all cert-manager helm values can be found at https://github.com/cert-manager/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml
   # The following is an example, please note that the current indentation inside the EOT is important.
-  /*   cert_manager_values = <<EOT
+  cert_manager_values = <<EOT
 installCRDs: true
+extraArgs: ["--dns01-recursive-nameservers-only", "--dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53"]
 replicaCount: 3
 webhook:
   replicaCount: 3
 cainjector:
   replicaCount: 3
-  EOT */
+  EOT
 
   # csi-driver-smb, all csi-driver-smb helm values can be found at https://github.com/kubernetes-csi/csi-driver-smb/blob/master/charts/latest/csi-driver-smb/values.yaml
   # The following is an example, please note that the current indentation inside the EOT is important.
