@@ -6,6 +6,6 @@ metadata:
 spec:
   ipAllowList:
     sourceRange:
-      - 75.33.78.238
+      - 75.33.78.238/32
     # ipStrategy:
     #   depth: 1
