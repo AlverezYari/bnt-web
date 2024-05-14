@@ -161,5 +161,4 @@ jobs:
       - 
         name: Deploy with kubectl
         run: |
-          kubectl --kubeconfig=./kubeconfig.yaml rolling restart deployment bnt-web -n bnt-web
-
+          kubectl rolling restart deplopyment/bnt-web -n bnt-web --kubeconfig=./kubeconfig.yaml
