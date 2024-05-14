@@ -15,7 +15,7 @@ spec:
           port: 80
       middlewares:
         - name: bnt-dev-ip-whitelist
-          namespace: traefik
+          namespace: bnt-web
   tls:
     secretName: bnt-web-tls-wildcard
 
