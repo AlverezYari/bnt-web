@@ -90,12 +90,9 @@ jobs:
       defaults:
         run:
           working-directory: ./app
-  
+      env:
+        BRANCH_NAME: ${{ github.base_ref || github.ref_name }} 
       steps:
-        -
-          name: Extract branch name
-          id: extract_branch
-          run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
         -
           name: Checkout Code
           uses: actions/checkout@v4
@@ -123,7 +120,7 @@ jobs:
           name: Push Docker Image
           run: |
             docker tag bnt-webapp:develop ghcr.io/alverezyari/bnt-web:${{ env.BRANCH_NAME }}
-            docker push ghcr.io/alverezyari/bnt-web:develop
+            docker push ghcr.io/alverezyari/bnt-web:${{ env.BRANCH_NAME }}
 
 
   deploy-develop:
