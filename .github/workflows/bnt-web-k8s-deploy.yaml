@@ -68,7 +68,7 @@ jobs:
         name: Inject Hetzner DNS API Key into manifest
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.spec.acme.solvers[0].dns01.webhook.config.APIKey = strenv(HETZNER_DNS_API_KEY)' ./k8s/core/clusterissuer-staging.yaml
+          cmd: yq -i '.spec.acme.solvers[0].dns01.webhook.config.APIKey = strenv(HETZNER_DNS_API_KEY)' './k8s/core/clusterissuer-staging.yaml'
         env:
           HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
       -
