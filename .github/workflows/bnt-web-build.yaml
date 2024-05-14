@@ -146,15 +146,9 @@ jobs:
           secret-ids: |
             ,bnt/ops/web/cluster/kubeconfig
           parse-json-secrets: true
-
-      -
-        name: Setup Kubectl cmd env
-        run: |
-          echo "KUBECONFIG=$KUBECONFIG" >> $GITHUB_ENV >> ./kubeconfig.yaml
-      -
-        name: Setup Kubectl cmd env
-        run: |
-          echo "KUBECTL_CMD=kubectl --kubeconfig=./kubeconfig.yaml" >> $GITHUB_ENV
+      - 
+        name: Setup KUBECTL_CMD env
+        run: echo "KUBECTL_CMD=kubectl --kubeconfig=./kubeconfig.yaml" >> $GITHUB_ENV
       - 
         name: Check that our KUBECONFIG is set and working
         run: |
