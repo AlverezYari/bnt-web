@@ -4,11 +4,10 @@ metadata:
   name: bnt-web-tls-wildcard
   namespace: bnt-web
 spec:
-  commonName: bluenimbustech.com
-  secretName: bnt-web-tls-dev
+  commonName: "*.bluenimbustech.com"
+  secretName: bnt-web-tls-wildcard
   dnsNames:
-    - 'bluenimbustech.com'
-    - 'dev.bluenimbustech.com'
+    - "*.bluenimbustech.com"
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer
