@@ -68,9 +68,13 @@ jobs:
         name: Inject Hetzner DNS API Key into manifest
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.spec.acme.solvers[0].dns01.webhook.config.APIKey = env(HETZNER_DNS_API_KEY)' ./k8s/core/clusterissuer-staging.yaml
+          cmd: yq -i '.spec.acme.solvers[0].dns01.webhook.config.APIKey = strenv(HETZNER_DNS_API_KEY)' ./k8s/core/clusterissuer-staging.yaml
         env:
           HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
+      -
+        name: Debugging Output ClusterIssuer YAML after injection
+        run: |
+          cat ./k8s/core/clusterissuer-staging.yaml
       -
         name: Deploy the ClusterIssuer for Cert Manager
         env:
@@ -80,4 +84,5 @@ jobs:
       -
         name: Deploy the Bnt WebApp [DEV] to the k8s cluster
         run: |
+          echo cat ./k8s/core/clusterissuer-staging.yaml
           ${{ env.KUBECTL_CMD }} apply --validate=false -k ./k8s/bnt-web/overlays/develop/
