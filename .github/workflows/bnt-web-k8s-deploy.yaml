@@ -64,6 +64,13 @@ jobs:
           cd cert-manager-webhook-hetzner
           export KUBECONFIG=../kubeconfig.yaml
           helm upgrade --install --namespace kube-system cert-manager-webhook-hetzner ./charts/cert-manager-webhook-hetzner
+      - 
+        name: Inject Hetzner DNS API Key into manifest
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.spec.acme.solvers[0].dns01.webhook.config.APIKey = env(HETZNER_DNS_API_KEY)' ./k8s/core/clusterissuer-staging.yaml
+        env:
+          HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
       -
         name: Inject our Hetzner DNS API Key into manifest
         env:
