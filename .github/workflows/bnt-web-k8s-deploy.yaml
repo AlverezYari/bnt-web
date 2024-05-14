@@ -65,12 +65,12 @@ jobs:
           export KUBECONFIG=../kubeconfig.yaml
           helm upgrade --install --namespace kube-system cert-manager-webhook-hetzner ./charts/cert-manager-webhook-hetzner
       -
-        ## TODO: Add a check to see if the clusterissuer already exists, 
-        ## TODO: if it does, then we should skip this step.
-        ## TODO: Refactor this to use a bnt-core Kustomize file
-        name: Deploy our ClusterIssuer for Cert Manager
+        name: Inject our Hetzner DNS API Key into manifest
+        env:
+          HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
         run: |
-          ls -la
+          envsubst < ./k8s/core/clusterissuer-staging.yaml > ./k8s/core/clusterissuer-staging.yaml
+          cat ./k8s/core/clusterissuer-staging.yaml
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-staging.yaml
       -
         name: Deploy the Bnt WebApp [DEV] to the k8s cluster
