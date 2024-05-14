@@ -18,4 +18,4 @@ spec:
             groupName: dns.hetzner.cloud
             solverName: hetzner
             config:
-              APIKey:
+              APIKey: ${HETZNER_DNS_API_KEY}
