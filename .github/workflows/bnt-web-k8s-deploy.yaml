@@ -58,10 +58,17 @@ jobs:
           export KUBECONFIG=../kubeconfig.yaml
           helm upgrade --install --namespace kube-system cert-manager-webhook-hetzner ./charts/cert-manager-webhook-hetzner
       - 
-        name: Inject Hetzner DNS API Key into manifest
+        name: Inject Hetzner DNS API Key into staging ClusterIssuer
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.spec.acme.solvers[0].dns01.webhook.config.APIKey = strenv(HETZNER_DNS_API_KEY)' k8s/core/clusterissuer-staging.yaml
+        env:
+          HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
+      - 
+        name: Inject Hetzner DNS API Key into production ClusterIssuer
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.spec.acme.solvers[0].dns01.webhook.config.APIKey = strenv(HETZNER_DNS_API_KEY)' k8s/core/clusterissuer-production.yaml
         env:
           HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
       -
@@ -74,6 +81,7 @@ jobs:
           KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-staging.yaml
+          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-production.yaml
       -
         name: Deploy the Bnt WebApp [DEV] to the k8s cluster
         run: |
