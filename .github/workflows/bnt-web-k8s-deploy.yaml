@@ -83,6 +83,12 @@ jobs:
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-staging.yaml
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-production.yaml
       -
+        name: Deploy our Whitelist Middleware for Traefik
+        env:
+          KUBECONFIG: ${{ env.KUBECONFIG }}
+        run: |
+          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/whitelist.yaml
+      -
         name: Deploy the Bnt WebApp [DEV] to the k8s cluster
         run: |
           echo cat ./k8s/core/clusterissuer-staging.yaml
