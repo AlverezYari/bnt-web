@@ -72,15 +72,6 @@ jobs:
         env:
           HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
       -
-        name: Inject our Hetzner DNS API Key into manifest
-        env:
-          HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
-        run: |
-          envsubst < ./k8s/core/clusterissuer-staging.yaml > ./k8s/core/clusterissuer-staging.yaml.tmp
-          mv ./k8s/core/clusterissuer-staging.yaml.tmp ./k8s/core/clusterissuer-staging.yaml
-          cat ./k8s/core/clusterissuer-staging.yaml
-          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-staging.yaml
-      -
         name: Deploy the Bnt WebApp [DEV] to the k8s cluster
         run: |
           ${{ env.KUBECTL_CMD }} apply --validate=false -k ./k8s/bnt-web/overlays/develop/
