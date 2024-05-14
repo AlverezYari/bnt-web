@@ -69,7 +69,7 @@ metadata:
   name: godaddy-webhook:domain-solver
 rules:
 - apiGroups:
-  - acme.mycompany.com
+  - acme.bluenimbustech.com
   resources:
   - '*'
   verbs:
@@ -259,7 +259,7 @@ spec:
         - --tls-private-key-file=/tls/tls.key
         env:
         - name: GROUP_NAME
-          value: acme.mycompany.com
+          value: acme.bluenimbustech.com
         - name: LOGGING_LEVEL
           value: info
         - name: LOGGING_FORMAT
@@ -320,9 +320,9 @@ metadata:
   labels:
     app.kubernetes.io/name: godaddy-webhook
     app.kubernetes.io/version: 0.2.0
-  name: v1alpha1.acme.mycompany.com
+  name: v1alpha1.acme.bluenimbustech.com
 spec:
-  group: acme.mycompany.com
+  group: acme.bluenimbustech.com
   groupPriorityMinimum: 1000
   service:
     name: godaddy-webhook

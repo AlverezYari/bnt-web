@@ -44,34 +44,38 @@ jobs:
         name: Check that our KUBECONFIG is set and working
         run: |
           ${{ env.KUBECTL_CMD }} get nodes
+      - 
+        name: Setup Helm
+        uses: azure/setup-helm@v4.2.0
+        id: install
       -
-        name: Deploy the GoDaddy Webhook plugin for Cert Manager
+        name: Deploy the Hetzner DNS Webhook for Cert Manager
+        env:
+          KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
-          export DOMAIN=bluenimbustech.com  
-          sed "s/acme.mycompany.com/$DOMAIN/g" ./k8s/core/godaddy-webhook.yaml
-          ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/godaddy-webhook.yaml
+          git clone https://github.com/mecodia/cert-manager-webhook-hetzner.git
+          cd cert-manager-webhook-hetzner
+          export KUBECONFIG=../kubeconfig.yaml
+          helm upgrade --install --namespace kube-system cert-manager-webhook-hetzner ./charts/cert-manager-webhook-hetzner
+      - 
+        name: Inject Hetzner DNS API Key into manifest
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.spec.acme.solvers[0].dns01.webhook.config.APIKey = strenv(HETZNER_DNS_API_KEY)' k8s/core/clusterissuer-staging.yaml
+        env:
+          HETZNER_DNS_API_KEY: ${{ secrets.HETZNER_DNS_API_KEY }}
       -
-        ## TODO: Refactor this to be provided by a bnt-core Kustomize file
-        name: Deploy our GoDaddy Secret for Cert Manager Auth
+        name: Debugging Output ClusterIssuer YAML after injection
         run: |
-          cat <<EOF > secret.yaml
-          apiVersion: v1
-          kind: Secret
-          metadata:
-            name: godaddy-api-key
-          type: Opaque
-          stringData:
-            token: ${{ secrets.GODADDY_API_KEY }}:${{ secrets.GODADDY_API_SECRET }}
-          EOF
-          ${{ env.KUBECTL_CMD }} apply -f secret.yaml --validate=false --namespace cert-manager
+          cat ./k8s/core/clusterissuer-staging.yaml
       -
-        ## TODO: Add a check to see if the clusterissuer already exists, 
-        ## TODO: if it does, then we should skip this step.
-        ## TODO: Refactor this to use a bnt-core Kustomize file
-        name: Deploy our ClusterIssuer for Cert Manager
+        name: Deploy the ClusterIssuer for Cert Manager
+        env:
+          KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
           ${{ env.KUBECTL_CMD }} apply --validate=false -f ./k8s/core/clusterissuer-staging.yaml
       -
         name: Deploy the Bnt WebApp [DEV] to the k8s cluster
         run: |
+          echo cat ./k8s/core/clusterissuer-staging.yaml
           ${{ env.KUBECTL_CMD }} apply --validate=false -k ./k8s/bnt-web/overlays/develop/
