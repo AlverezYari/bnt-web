@@ -2,7 +2,7 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: bnt-dev-ip-whitelist
-  namespace: traefik
+  namespace: bnt-web
 spec:
   ipAllowList:
     sourceRange:
