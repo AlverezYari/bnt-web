@@ -20,6 +20,11 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func (app *application) dynamic(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	w.Write([]byte(`<p>This is dynamically loaded content!</p>`))
+}
+
 func (app *application) pageView(w http.ResponseWriter, r *http.Request, id string) {
 
 	if id == "home" {

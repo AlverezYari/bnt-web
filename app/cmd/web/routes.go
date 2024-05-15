@@ -30,6 +30,7 @@ func (app *application) routes() *http.ServeMux {
 
 	mux.HandleFunc("/", app.home)
 	// More routes should be added here
+	mux.HandleFunc("/dynamic", app.dynamic)
 
 	return mux
 }
