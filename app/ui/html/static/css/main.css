@@ -1,3 +1,8 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* Apply our custom background image to the body */
+body {
+  @apply bg-hero-pattern bg-cover bg-center;
+}

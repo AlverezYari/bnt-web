@@ -8,3 +8,12 @@ terraform.tfstate.backup
 *.terraform/
 *.tfvars
 .terraform*
+
+# Local builds
+temp/
+
+# js shit
+*.node_modules/
+*.npm/
+*.yarn/
+
